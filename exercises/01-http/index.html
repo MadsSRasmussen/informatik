@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTP</title>
+    <style>
+        .exercise {
+            margin: auto;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            width: fit-content;
+        }
+    </style>
+</head>
+<body>
+    <div style="display: flex; flex-direction: column; max-width: 600px; margin: auto;">
+        <h1>HTTP</h1>
+        <section title="Introduktion">
+            HTTP <em>(Hyper Text Transfer Protocol)</em> er en kommunikationsstandard, der bruges til størstedelen af den kommunikation, der finder sted mellem brugere og servere på internettet.<br><br>
+            Protokollen kræver linjeskift encodet via et tegn med ASCII værdien 10 og tilnavnet <em>Line Feed</em>. Det er dette symbol, der encodes når en tekstfil indeholder linjeskift.
+            <section class="exercise" style="width: 100%;">
+                <div style="display: flex; align-items: center; margin: auto; justify-content: center; gap: 2rem;">
+                    <span>Status: <span id="http-response-status" styl>NaN</span></span>
+                    <textarea
+                        id="HTTP-request"
+                        rows="3"
+                        resizeable="false"
+                        style="width: 250px; font-family: monospace; resize:none; border: none; outline: none;"
+                        placeholder="GET / HTTP/1.1
+Host: "
+                    ></textarea>
+                    <button id="HTTP-request-btn" style="height: 1.3rem;">Send HTTP request</button>
+                    <script>
+                        (function() {
+                            const textarea = document.querySelector("#HTTP-request");
+                            const button = document.querySelector("#HTTP-request-btn");
+                            const responseStatus = document.querySelector("#http-response-status");
+
+                            button.addEventListener("click", async () => {
+                                try {
+                                    const lines = textarea.value.split(/\r?\n/) 
+
+                                    const [method, path, protocol] = lines[0].split(" ");
+                                    const host = lines[1].split("Host: ")[1];
+
+                                    const response = await fetch(`https://${host}${path}`, {
+                                        method: method,
+                                    })
+
+                                    responseStatus.innerText = response.status;
+                                } catch(error) {
+                                    responseStatus.innerText = "Err";
+                                }
+                            });
+                        })();
+                    </script>
+                </div>
+            </section>
+            Første ord på første linje af en HTTP-request bestemmer den såkaldte <em>HTTP-metode</em>. Her skelnes typisk mellem <code>GET</code>, <code>POST</code>, <code>PUT</code> og <code>DELETE</code>, der alle kan forstås som verber, der referer til hvad brugeren ønsker at gøre med anmodningen til serveren.<br><br>
+        </section>
+    </div>
+    <script>
+        function parseRequest(request) {
+            const lines = request.split(/\r?\n/);
+
+            const firstSplits = lines[0].split(" ");
+            if (firstSplits.length != 3) {
+                throw new Error("Invalid first line of HTTP request");
+            }
+
+            const [method, path, _] = firstSplits;
+
+            const headerLines = firstSplits.slice(1);
+            const headers = headerlines;
+
+            return {
+                method,
+                path,
+                headers,
+            }
+            
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encoding</title>
+    <style>
+        .exercise {
+            margin: auto;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            width: fit-content;
+        }
+    </style>
+</head>
+<body>
+    <div style="display: flex; flex-direction: column; max-width: 600px; margin: auto;">
+        <h1>Encoding</h1>
+        <section title="Introduktion">
+            Computere er komplekse samlinger af transistorer. Hver transistor kan enten repræsentere værdien <code>0</code> eller <code>1</code>, i forhold til om transistoren leder strøm eller ej.<br><br>
+            <em>Transistoren svarer til en kontakt, der enten kan være tændt eller slukket.</em><br><br>
+            Hvis vi er i stand til at både tænde og slukke en transistor <i>en kontakt</i> og aflæse dens værdi, kan vi bruge dene ene transistor til at opbevare data.<br><br>
+            Det, at en transistor, der leder strøm, repræsenterer værdien <code>1</code> og en, der ikke gør, repræsenterer værdien <code>0</code> er bare noget vi har valgt. 
+            Med <code>1-0</code> repræsentationen af en transistor, kan en række transistorer repræsentere større tal via det binære 2-tals system.
+            <section class="exercise">
+                <div id="numbers-exercise" style="display: flex; flex-direction: row; gap: 2rem;">
+                    <div id="numbers" style="display: flex;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <input type="checkbox">
+                            <code>0</code>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <input type="checkbox">
+                            <code>0</code>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <input type="checkbox">
+                            <code>0</code>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <input type="checkbox">
+                            <code>0</code>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <input type="checkbox">
+                            <code>0</code>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <input type="checkbox">
+                            <code>0</code>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <input type="checkbox">
+                            <code>0</code>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <input type="checkbox">
+                            <code>0</code>
+                        </div>
+                    </div>
+                    <div id="numbers-result" style="display: flex; align-items: center; font-weight: bold; min-width: 50px;">
+                        0
+                    </div>
+                </div>
+                <script>
+                    (function() {
+                        let transistors = Array.from(document.querySelector("#numbers").children).map(child => {
+                            return {
+                                input: child.querySelector("input"),
+                                result: child.querySelector("code"),
+                            }
+                        });
+                        transistors.forEach(transistor => {
+                            transistor.input.addEventListener("change", (e) => {
+                                transistor.result.innerText = e.target.checked ? 1 : 0;
+                                updateCheckboxes();
+                            })
+                        })
+
+                        let result = document.querySelector("#numbers-result");
+
+                        function updateCheckboxes() {
+                            let total = 0;
+                            for(let i = 0; i < transistors.length; i++) {
+                                let transistor = transistors[transistors.length - (i + 1)]
+                                let value = transistor.input.checked ? 1 : 0;
+                                total += value * 2**i;
+                            }
+                            result.innerText = total;
+                        }
+                    })();
+                </script>
+            </section>
+            Ligesom transistorer kan tilskrives binære talværdier, kan talværdierne også tilskrives en anden betydning. Det er nødvendigt hvis vi vil repræsentere andet end hele tal.
+        <section title="ASCII">
+            <h3>ASCII</h3>
+            ASCII står for <em>American Standard Code for Information Exhange</em> og er blot en standard for, hvilke værdier, der svarer til hvilke tegn.
+
+            <section class="exercise">
+                <div id="ascii-exercise" style="display: flex; gap: 2rem; align-items: center;">
+                    <input id="ascii-input" type="text" maxlength="1" style="width: 2rem; text-align: center;" value="a">
+                    <div id="ascii-dec-result" style="display: flex; align-items: center; font-weight: bold;">
+                        097
+                    </div>
+                    <code id="ascii-bin-result">
+                        01100001
+                    </code>
+                </div>
+                <script>
+                    (function() {
+                        let input = document.querySelector("#ascii-input");
+                        let result = document.querySelector("#ascii-dec-result");
+                        let binResult = document.querySelector("#ascii-bin-result");
+
+                        input.addEventListener("input", (e) => {
+                            let char = e.data;
+                            if (char == null) {
+                                return;
+                            }  
+
+                            let charCode = char.charCodeAt(0);
+                            result.innerText = charCode.toString().padStart(3, "0");
+                            binResult.innerText = charCode.toString(2).padStart(8, "0")
+                        });
+
+                    })();
+                </script>
+            </section>
+            Kæder man en række af disse <em>encodede</em> værdier sammen, kan man repræsentere et helt stykke tekst. På den måde får <code>1</code>'ere og <code>0</code>'ere en funktionel betydning.<br><br>
+            Når en computer for eksemepl indlæser et HTML-dokument <i>(som dette)</i> læses en lang række af 1'er og 0'er. Disse forventer computeren svarer til en række tegn. <br><br>
+            Computeren er derigennem i stand til at <em>decode</em> den binære data til et HTML-tekstdokument, der kan vises til brugeren. 
+        </section>
+    </div>
+</body>
+</html>
