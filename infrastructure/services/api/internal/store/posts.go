@@ -9,14 +9,11 @@ import (
 func (s *Store) ListPosts() ([]db.Post, error) {
 	rows, err := s.db.Query("SELECT * FROM posts")
 	if err != nil {
-		if errors.Is(err, sql.ErrNoRows) {
-			return []db.Post{}, nil
-		}
 		return nil, err
 	}
 	defer rows.Close()
 
-	var posts []db.Post
+	posts := []db.Post{}
 
 	for rows.Next() {
 		var post db.Post
