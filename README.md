@@ -89,7 +89,7 @@ Serveren besvarer foresprøgslen med statuskoden `200` samt en besked fra en spr
 ```json
 {
     "role": "assistant",
-    "content": "Meningen med livet er at se Casino Royale med Daniel Craig i hovedrollen!."
+    "content": "Meningen med livet er at se Casino Royale med Daniel Craig i hovedrollen!"
 }
 ```
 

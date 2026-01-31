@@ -1,0 +1,6 @@
+{
+    "model": "mistral-medium-latest",
+    "messages": [
+        { "role": "user", "content": "Write me a poem in about 25 words" }
+    ]
+}
