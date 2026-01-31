@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"informatik/api/internal/ai"
 	"informatik/api/internal/config"
 	"informatik/api/internal/db"
 	"informatik/api/internal/server"
@@ -30,7 +31,12 @@ func run(ctx context.Context, w io.Writer, getenv func(string) string) error {
 
 	store := store.New(db)
 
-	srv := server.New(store)
+	mistral, err := ai.NewMistralClient(getenv)
+	if err != nil {
+		return err
+	}
+
+	srv := server.New(store, mistral)
 	httpServer := &http.Server{
 		Addr:    ":8080",
 		Handler: srv,
@@ -43,7 +49,7 @@ func run(ctx context.Context, w io.Writer, getenv func(string) string) error {
 		defer cancel()
 
 		if err := httpServer.Shutdown(shutdownCtx); err != nil {
-			fmt.Fprintf(w, "Shutdown error: %w", err)
+			fmt.Fprintf(w, "Shutdown error: %v", err)
 		}
 	}()
 

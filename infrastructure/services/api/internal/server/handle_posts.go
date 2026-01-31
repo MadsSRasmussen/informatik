@@ -17,10 +17,7 @@ func (s *Server) handlePostsList() http.HandlerFunc {
 			return
 		}
 
-		w.Header().Set("Content-Type", "application/json")
-
-		encoder := json.NewEncoder(w)
-		encoder.Encode(res)
+		s.respond(w, http.StatusOK, res)
 	}
 }
 
@@ -47,10 +44,7 @@ func (s *Server) handlePostGet() http.HandlerFunc {
 			return
 		}
 
-		w.Header().Set("Content-Type", "application/json")
-
-		encoder := json.NewEncoder(w)
-		encoder.Encode(res)
+		s.respond(w, http.StatusOK, res)
 	}
 }
 
@@ -72,11 +66,6 @@ func (s *Server) handlePostCreate() http.HandlerFunc {
 			return
 		}
 
-		fmt.Println("Got here")
-
-		w.Header().Set("Content-Type", "application/json")
-
-		encoder := json.NewEncoder(w)
-		encoder.Encode(res)
+		s.respond(w, http.StatusCreated, res)
 	}
 }

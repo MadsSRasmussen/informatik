@@ -1,18 +1,21 @@
 package server
 
 import (
+	"informatik/api/internal/ai"
 	"informatik/api/internal/store"
 	"net/http"
 )
 
 type Server struct {
-	store  store.Storer
-	router http.Handler
+	store    store.Storer
+	aiClient ai.AIClient
+	router   http.Handler
 }
 
-func New(store store.Storer) *Server {
+func New(store store.Storer, aiClient ai.AIClient) *Server {
 	s := &Server{
-		store: store,
+		store:    store,
+		aiClient: aiClient,
 	}
 
 	s.routes()
@@ -20,5 +23,5 @@ func New(store store.Storer) *Server {
 }
 
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	s.router.ServeHTTP(w, r)
+	s.corsMiddleware(s.router).ServeHTTP(w, r)
 }
