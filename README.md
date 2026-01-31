@@ -33,6 +33,7 @@ Serveren eksponerer en række endpoints, der relaterer sig til at kunne både l�
 #### `GET /posts`
 
 En `GET`-request til dette endpoint returnerer en liste af alle *posts*.
+
 ```json
 [
     { "id": 1, "content": "Sean Connery var den ringeste James Bond!" },
@@ -43,6 +44,7 @@ En `GET`-request til dette endpoint returnerer en liste af alle *posts*.
 #### `GET /posts/:id`
 
 Et `id` på en post kan gives som URL-parameter. En `GET`-request til `/posts/1` returnerer eksempelvis den post, der har `id = 1`, såfremt denne eksisterer:
+
 ```json
 {
     "id": 1,
@@ -60,6 +62,7 @@ En `POST`-request til `/posts`-endpointet gør det muligt at *poste* et post til
 ```
 
 Serveren besvarer forespørgslen med statuskoden `201 Created` og returnerer id'et på den post, der netop er oprettet:
+
 ```json
 { "id": 1 }
 ```
@@ -78,6 +81,15 @@ En `POST`-request til `/completions`-endpointet generer et svar fra en sprogmode
     "messages": [
         { "role": "user", "content": "Hvad er meningen med livet" }
     ]
+}
+```
+
+Serveren besvarer foresprøgslen med statuskoden `200` samt en besked fra en sprogmodel på formen:
+
+```json
+{
+    "role": "assistant",
+    "content": "Meningen med livet er at se Casino Royale med Daniel Craig i hovedrollen!."
 }
 ```
 
