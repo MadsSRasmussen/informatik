@@ -1,6 +1,8 @@
 package store
 
 import (
+	"database/sql"
+	"errors"
 	"informatik/api/internal/db"
 )
 
@@ -11,7 +13,7 @@ func (s *Store) ListPosts() ([]db.Post, error) {
 	}
 	defer rows.Close()
 
-	var posts []db.Post
+	posts := []db.Post{}
 
 	for rows.Next() {
 		var post db.Post
@@ -46,10 +48,9 @@ func (s *Store) GetPost(pid int) (*db.Post, error) {
 		&post.Content,
 		&post.CreatedAt,
 	); err != nil {
-		return nil, err
-	}
-
-	if err := row.Err(); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, ErrNotFound
+		}
 		return nil, err
 	}
 
