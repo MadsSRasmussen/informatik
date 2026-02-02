@@ -69,3 +69,28 @@ func (s *Server) handlePostCreate() http.HandlerFunc {
 		s.respond(w, http.StatusCreated, res)
 	}
 }
+
+func (s *Server) handlePostRemove() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		id, err := strconv.Atoi(r.PathValue("id"))
+		if err != nil {
+			http.Error(w, "Internal server error", http.StatusInternalServerError)
+			return
+		}
+
+		if err := s.store.RemovePost(id); err != nil {
+			if errors.Is(err, store.ErrNotFound) {
+				http.Error(
+					w,
+					fmt.Sprintf("Post with id %d not found", id),
+					http.StatusNotFound,
+				)
+				return
+			}
+			http.Error(w, "Internal server error", http.StatusInternalServerError)
+			return
+		}
+
+		s.respond(w, http.StatusNoContent, nil)
+	}
+}

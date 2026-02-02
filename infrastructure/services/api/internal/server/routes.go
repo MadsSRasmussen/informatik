@@ -10,6 +10,7 @@ func (s *Server) routes() {
 	mux.HandleFunc("GET /posts", s.handlePostsList())
 	mux.HandleFunc("GET /posts/{id}", s.handlePostGet())
 	mux.HandleFunc("POST /posts", s.handlePostCreate())
+	mux.HandleFunc("DELETE /posts/{id}", s.handlePostRemove())
 
 	mux.HandleFunc("POST /completions", s.handleCompletionCreate())
 

@@ -79,3 +79,25 @@ func (s *Store) CreatePost(content string) (*PostCreateResponse, error) {
 		ID: id,
 	}, nil
 }
+
+func (s *Store) RemovePost(pid int) error {
+	res, err := s.db.Exec(
+		"DELETE FROM posts WHERE id = ?",
+		pid,
+	)
+
+	if err != nil {
+		return err
+	}
+
+	rowsAff, err := res.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rowsAff == 0 {
+		return ErrNotFound
+	}
+
+	return nil
+}
