@@ -1,9 +1,9 @@
-Client = (function() {
+const Client = (function() {
 
     const SERVER_URL = "https://informatik.mads-studsgaard.com";
 
     async function ping() {
-        response = await fetch(`${SERVER_URL}/ping`);
+        const response = await fetch(`${SERVER_URL}/ping`);
         
         if (response.status === 200) {
             return true
@@ -13,7 +13,7 @@ Client = (function() {
     }
 
     async function listPosts() {
-        response = await fetch(`${SERVER_URL}/posts`);
+        const response = await fetch(`${SERVER_URL}/posts`);
 
         if (response.status === 200) {
             return await response.json()
@@ -23,7 +23,7 @@ Client = (function() {
     }
 
     async function getPost(id) {
-        response = await fetch(`${SERVER_URL}/posts/${id}`);
+        const response = await fetch(`${SERVER_URL}/posts/${id}`);
 
         if (response.status === 200) {
             return await response.json()
@@ -33,17 +33,17 @@ Client = (function() {
     }
 
     async function createPost(content) {
-        requestBody = {
+        const requestBody = {
             content: content
         }
 
-        response = await fetch(`${SERVER_URL}/posts`, {
+        const response = await fetch(`${SERVER_URL}/posts`, {
             method: "POST",
             body: JSON.stringify(requestBody)
         });
 
         if (response.status === 201) {
-            responseBody = await response.json();
+            const responseBody = await response.json();
             return responseBody.id;
         } else {
             throw new Error(`HTTP request failed with status: ${response.status}`);
@@ -51,7 +51,7 @@ Client = (function() {
     }
 
     async function deletePost(id) {
-        response = await fetch(`${SERVER_URL}/posts/${id}`, { method: "DELETE" });
+        const response = await fetch(`${SERVER_URL}/posts/${id}`, { method: "DELETE" });
 
         if (response.status === 204) {
             return;
@@ -61,12 +61,12 @@ Client = (function() {
     }
 
     async function getCompletion(model, messages) {
-        requestBody = {
+        const requestBody = {
             model: model,
             messages: messages,
         }
 
-        response = await fetch(`${SERVER_URL}/completions`, {
+        const response = await fetch(`${SERVER_URL}/completions`, {
             method: "POST",
             body: JSON.stringify(requestBody)
         })
