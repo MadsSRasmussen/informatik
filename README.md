@@ -67,6 +67,10 @@ Serveren besvarer forespørgslen med statuskoden `201 Created` og returnerer id'
 { "id": 1 }
 ```
 
+#### `DELETE /posts/:id`
+
+Et `id` på en post gives som URL-parameter. En `DELETE`-request til `/posts/:id` resutlerer i at serveren sletter posten med det id. Serveren returnerer statuskoden `204 No content`.
+
 ### Completions
 
 Completions endpointet bruges til at generere en *chat completion*. Med dette forståes et svar i næste led af en samtale med en sprogmodel.
