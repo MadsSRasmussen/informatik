@@ -2,7 +2,7 @@
 
 Sandt er et top-moderne Javascript framework til dig, der ønsker at tilgå platformen: 
 
-**🇩🇰 Sandhedens Stemme 🇩🇰 **
+**🇩🇰 Sandhedens Stemme 🇩🇰**
 
 ## 📖 Indholdsfortegnelse
 
@@ -66,7 +66,7 @@ Funktionen sender en `GET`-request til `/posts/:id` *(`:id` erstattes af det `id
 const post = await Sandt.getPost(1);
 ```
 
-## 🖋️ Skriv Sandheden
+## 🎤 Skriv Sandheden
 
 Det er ikke nok, kun at lytte til sandheden – man må tage opgaven om, at sprede det sande budskab i egen hånd!
 
