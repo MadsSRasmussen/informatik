@@ -1,4 +1,4 @@
-const Client = (function() {
+const Sandt = (function() {
 
     const SERVER_URL = "https://informatik.mads-studsgaard.com";
 
@@ -60,31 +60,12 @@ const Client = (function() {
         }
     }
 
-    async function getCompletion(model, messages) {
-        const requestBody = {
-            model: model,
-            messages: messages,
-        }
-
-        const response = await fetch(`${SERVER_URL}/completions`, {
-            method: "POST",
-            body: JSON.stringify(requestBody)
-        })
-
-        if (response.status === 200) {
-            return await response.json()
-        } else {
-            throw new Error(`HTTP request failed with status: ${response.status}`);
-        }
-    }
-
     return {
         ping,
         listPosts,
         getPost,
         createPost,
         deletePost,
-        getCompletion,
     }
 
 })();
