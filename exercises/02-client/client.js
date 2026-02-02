@@ -1,6 +1,7 @@
 Client = (function() {
 
-    const SERVER_URL = "https://informatik.mads-studsgaard.com";
+    // const SERVER_URL = "https://informatik.mads-studsgaard.com";
+    const SERVER_URL = "http://localhost:8080";
 
     async function ping() {
         response = await fetch(`${SERVER_URL}/ping`);
@@ -50,6 +51,16 @@ Client = (function() {
         }
     }
 
+    async function deletePost(id) {
+        response = await fetch(`${SERVER_URL}/posts/${id}`, { method: "DELETE" });
+
+        if (response.status === 204) {
+            return;
+        } else {
+            throw new Error(`HTTP request failed with status: ${response.status}`);
+        }
+    }
+
     async function getCompletion(model, messages) {
         requestBody = {
             model: model,
@@ -73,6 +84,7 @@ Client = (function() {
         listPosts,
         getPost,
         createPost,
+        deletePost,
         getCompletion,
     }
 
