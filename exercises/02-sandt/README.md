@@ -22,6 +22,7 @@ Budgettet på den yderste højrefløj er desværre ikke hvad det har været. Der
 
 Operationerne på det sociale medie udelukkende gennem kommunikation til sandhedens stemme's servere. 
 
+
 ## 🇩🇰 Frameworket Sandt
 
 Sandt er et lille Javascript framework, der tillader brugere at interagere med Sandhedens Stemme's server.
@@ -37,6 +38,7 @@ Sandt har en lang række af funktioner til dig, den erfarne informatik elev, der
 Sandt er dit direkte adgangskort til det frie, højreekstremistiske medie: *Sandhedens Stemme*.
 
 Du kan både læse, skrive og slette posts med Sandt som dit Javascript framework.
+
 
 ## 🚀 Læs Sandheden
 
@@ -66,6 +68,7 @@ Funktionen sender en `GET`-request til `/posts/:id` *(`:id` erstattes af det `id
 const post = await Sandt.getPost(1);
 ```
 
+
 ## 🎤 Skriv Sandheden
 
 Det er ikke nok, kun at lytte til sandheden – man må tage opgaven om, at sprede det sande budskab i egen hånd!
@@ -81,6 +84,7 @@ Funktionen sender en `POST`-request til `/posts`, hvormed indholdet specificeret
 ```js
 await Sandt.createPost("Danmark til Ejderen!");
 ```
+
 
 ## 🧹 Slet Usandheder
 
@@ -98,6 +102,7 @@ Funktionen sender en `DELETE`-request til `/posts/:id`, hvormed en post med det 
 await Sandt.deletePost(1)
 ```
 
+
 ## 📡 Virker Sandheden?
 
 Nogle gange er det nødvendigt at undersøge, om sandheden kører som den skal.
@@ -113,6 +118,7 @@ Funktionen sender en `GET`-request til `/ping` og returnerer `Promise<boolean>`
 ```js
 const isRunning = await Sandt.ping()
 ```
+
 
 ## 📟 Biddrag til Sandheden
 
