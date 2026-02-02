@@ -6,7 +6,7 @@ Sandt er et top-moderne Javascript framework til dig, der ønsker at tilgå plat
 
 ## 📖 Indholdsfortegnelse
 
-- [Sandhedens Stemme](#-sandhedens-stemme)
+- [Sandhedens Stemme](#-sandhedens-stemme-)
 - [Frameworket Sandt](#-frameworket-sandt)
 - [Læs Sandheden](#-læs-sandheden)
 - [Skriv Sandheden](#-skriv-sandheden)
