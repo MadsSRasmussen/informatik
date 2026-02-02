@@ -11,7 +11,7 @@ Sandt er et top-moderne Javascript framework til dig, der ønsker at tilgå plat
 - [Læs Sandheden](#-læs-sandheden)
 - [Skriv Sandheden](#-skriv-sandheden)
 - [Slet Usandheder](#-slet-usandheder)
-- [Virker Sandheden?](#-virker-sandheden?)
+- [Virker Sandheden?](#-virker-sandheden)
 - [Biddrag til Sandheden](#-biddrag-til-sandheden)
 
 ## 🇩🇰 Sandhedens Stemme 🇩🇰
