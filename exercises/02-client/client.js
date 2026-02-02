@@ -1,7 +1,6 @@
 Client = (function() {
 
-    // const SERVER_URL = "https://informatik.mads-studsgaard.com";
-    const SERVER_URL = "http://localhost:8080";
+    const SERVER_URL = "https://informatik.mads-studsgaard.com";
 
     async function ping() {
         response = await fetch(`${SERVER_URL}/ping`);
