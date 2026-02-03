@@ -3,4 +3,21 @@
 const chatInput = document.querySelector("#chat-input");
 const chatSendBtn = document.querySelector("#chat-send-btn");
 
-console.log(chatInput, chatSendBtn);
+chatInput.addEventListener("keypress", (e) => {
+    if (e.code === "Enter") {
+        handleMessageSend();
+    }
+});
+
+chatSendBtn.addEventListener("click", () => {
+    handleMessageSend();
+})
+
+function handleMessageSend() {
+    const content = chatInput.value;
+    if (!content) {
+        return;
+    }
+    AI.sendMessage(content);
+    chatInput.value = "";
+}

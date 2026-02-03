@@ -168,9 +168,31 @@ h-full {
 }
 
 .chat-container {
-    gap: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 600px;
 }
 
+.chat-container.has-messages {
+    height: 70vh;
+}
+
+.messages-container {
+    flex: 0 0 auto;   /* NOT growing initially */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 300ms ease;
+}
+
+.messages-container.has-messages {
+    flex: 1 1 auto;   /* now participates fully */
+    max-height: 100%;
+    min-height: 0;   /* critical for scrolling */
+}
 .input-container {
     height: calc(1.75 * var(--ui-element-height));
     border-radius: calc(0.875 * var(--ui-element-height));
@@ -180,4 +202,23 @@ h-full {
     gap: 0.25rem;
     width: 600px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.message-content {
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+.message[role="user"] {
+    display: flex;
+    justify-content: flex-end;
+
+    .message-content {
+        background: var(--color-background-hover);
+    }
+}
+
+.message-content {
 }
