@@ -43,6 +43,20 @@
 
         --color-backdrop: #1f1f1f;
     }
+
+}
+
+::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-backdrop);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-background-hover);
+    border-radius: 0.25rem;
 }
 
 * {
@@ -90,7 +104,6 @@ button.square {
 }
 
 button > svg {
-    fill: var(--color-primary);
     stroke: var(--color-primary);
 }
 
@@ -192,6 +205,10 @@ h-full {
     flex: 1 1 auto;   /* now participates fully */
     max-height: 100%;
     min-height: 0;   /* critical for scrolling */
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
 }
 .input-container {
     height: calc(1.75 * var(--ui-element-height));
@@ -205,10 +222,10 @@ h-full {
 }
 
 .message-content {
-    border-radius: 0.5rem;
-    padding: 0.25rem;
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
 }
 
 .message[role="user"] {
@@ -220,5 +237,54 @@ h-full {
     }
 }
 
+.message[role="system"] {
+    visibility: hidden;
+}
+
 .message-content {
+}
+
+.loader {
+  width: 1rem;
+  height: 1rem;
+  border: 0.25rem solid var(--color-primary);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  position: relative;
+  animation: pulse 0.75s linear infinite;
+}
+
+@keyframes pulse {
+  0% , 60% , 100%{ transform:  scale(1) }
+  80% { transform:  scale(1.2)}
+}
+
+ul, ol {
+    margin: 1em 0;
+    padding-left: 1.5em;
+}
+
+li {
+    margin: 0.5em 0;
+}
+
+hr {
+    border: 0.0625rem solid var(--color-text-muted);
+    border-radius: 0.125rem;
+}
+
+.ai-status-container {
+    position: fixed;
+    right: 0.5rem;
+    top: 0.5rem;
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    visibility: hidden;
+}
+
+.loader.ai-status {
+    border-color: var(--color-debug);
 }

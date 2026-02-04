@@ -1,30 +1,81 @@
-const AI = (function() {
+const Client = (function() {
     const messagesContainer = document.querySelector(".messages-container");
     const chatContainer = document.querySelector(".chat-container");
 
-    function generateMessage(content, role) {
-        const message = document.createElement("div");
-        message.classList.add("message");
-        message.setAttribute("role", role);
+    let loader = null;
+
+    function generateMessageHTML(message) {
+        const messageElement = document.createElement("div");
+        messageElement.classList.add("message");
+        messageElement.setAttribute("role", message.role);
 
         const text = document.createElement("div");
         text.classList.add("message-content");
-        text.innerText = content; 
+        text.innerHTML = message.content; 
 
-        message.appendChild(text);
+        messageElement.appendChild(text);
 
-        return message;
+        return messageElement;
     }
 
-    async function sendMessage(content) {
-        const message = generateMessage(content, "user");
-        messagesContainer.appendChild(message);
+    function pushMessage(message) {
+        const messageElement = generateMessageHTML(message);
 
-        messagesContainer.classList.add("has-messages");
-        chatContainer.classList.add("has-messages");
+        messagesContainer.appendChild(messageElement);
+
+        if (message.role !== "system") {
+            messagesContainer.classList.add("has-messages");
+            chatContainer.classList.add("has-messages");
+        }
+
+        if (message.role === "user") {
+            setScroll();
+        }
+    }
+
+    function setLoading() {
+        if (loader !== null) {
+            return;
+        }
+
+        loader = generateMessageHTML({ 
+            role: "assistant", 
+            content: "<span class='loader'></span>" 
+        });
+
+        messagesContainer.appendChild(loader);
+        setScroll();
+    }
+
+    function replaceLoader(element) {
+        if (loader === null) {
+            return;
+        } 
+
+        loader.replaceWith(element);
+        loader = null;
+        setScroll();
+    }
+
+    function reset() {
+        messagesContainer.innerHTML = "";
+
+        messagesContainer.classList.remove("has-messages");
+        chatContainer.classList.remove("has-messages");
+    }
+
+    function setScroll() {
+        messagesContainer.scrollTo({
+            top: messagesContainer.scrollHeight,
+            behavior: "smooth",
+        })
     }
 
     return {
-        sendMessage,
+        generateMessageHTML,
+        pushMessage,
+        reset,
+        setLoading,
+        replaceLoader,
     }
 })();
