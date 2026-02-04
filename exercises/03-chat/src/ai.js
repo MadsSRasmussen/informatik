@@ -21,7 +21,6 @@ const AI = (function() {
     async function getCompletion(model, messages) {
         try {
             if (pending) return;
-            console.log(pending);
             pending = true;
 
             if (DEBUG) aiStatusElement.style.visibility = "visible";
