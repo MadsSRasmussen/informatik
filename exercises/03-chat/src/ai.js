@@ -21,6 +21,7 @@ const AI = (function() {
     async function getCompletion(model, messages) {
         try {
             if (pending) return;
+            console.log(pending);
             pending = true;
 
             if (DEBUG) aiStatusElement.style.visibility = "visible";
@@ -54,14 +55,18 @@ const AI = (function() {
                 content: converter.toHTMLString(body.content),
             }
 
-            return assistantMessage;
-
-        } catch (error) {
-            throw error;
-        } finally {
             aiStatusElement.style.visibility = "hidden";
             pending = false;
-        }
+
+            return assistantMessage;
+        } catch (error) {
+
+            aiStatusElement.style.visibility = "hidden";
+            pending = false;
+
+            throw error;
+        } 
+
     }
 
     return {
